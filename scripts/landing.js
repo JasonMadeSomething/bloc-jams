@@ -2,9 +2,7 @@ var pointsArray = document.getElementsByClassName('point');
 
 var animatePoints = function(points){  
     
-    for(var i = 0; i < points.length; i++){
-        revealPoint(i);
-    }
+    forEach(points, revealPoint);
     
     function revealPoint(i){
         points[i].style.opacity = 1;
