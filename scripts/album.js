@@ -28,22 +28,38 @@ var albumMarconi = {
     ]
 };
 
-var createSongRow = function(songNumber, songName, songLength){
+var albumFrank = {
+    name: 'The Long Road',
+    artist: 'Frank the Tank',
+    label: 'Discord Records',
+    year: '2001',
+    albumArtUrl: 'assets/images/album_covers/15.png',
+    songs: [
+        { name: 'HELP', length: '2:03' },
+        { name: 'THEY TRAPPED ME', length: '7:22' },
+        { name: 'IN THIS CD FACTORY', length: '1:25' },
+        { name: 'IF YOU CAN SEE THIS', length: '3:44' },
+        { name: 'PLEASE SEND HELP', length: '1:11' }
+    ]
+};
+
+var createSongRow = function (songNumber, songName, songLength) {
     var template =
-        '<tr class="album-view-song-item">'
-        +'  <td class="song-item-number">' + songNumber + '</td>'
-        +'  <td class="song-item-title">' + songName + '</td>'
-        +'  <td class="song-item-duration">' + songLength + '</td>'
-        +'</tr>'
-        ;
+            '<tr class="album-view-song-item">'
+            + '  <td class="song-item-number">' + songNumber + '</td>'
+            + '  <td class="song-item-title">' + songName + '</td>'
+            + '  <td class="song-item-duration">' + songLength + '</td>'
+            + '</tr>';
     return template;
 };
 
-var setCurrentAlbum = function(album){
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+
+var setCurrentAlbum = function (album) {
     var albumTitle = document.getElementsByClassName('album-view-title')[0];
     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
+    
     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
     
     albumTitle.firstChild.nodeValue = album.name;
@@ -58,6 +74,15 @@ var setCurrentAlbum = function(album){
     }
 };
 
+var albumsArray = [albumFrank, albumMarconi, albumPicasso];
+
 window.onload = function(){
     setCurrentAlbum(albumPicasso);
 };
+
+var clicks = 0;
+
+albumImage.addEventListener("click", function(event){
+    setCurrentAlbum(albumsArray[clicks]);
+    clicks = (clicks + 1) % albumsArray.length;
+});
