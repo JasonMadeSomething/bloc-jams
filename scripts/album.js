@@ -38,7 +38,6 @@ var createSongRow = function (songNumber, songName, songLength) {
     return template;
 };
 
-
 var setCurrentAlbum = function (album) {
     var albumTitle = document.getElementsByClassName('album-view-title')[0];
     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
@@ -60,7 +59,15 @@ var setCurrentAlbum = function (album) {
 };
 
 var findParentByClassName = function(current, parentName) {
+    if (current.parentElement === null){
+        alert("No Parent Found");
+        return;
+    }
     while (current.className != parentName) {
+        if (current.parentElement === null){
+            alert("No parent found with that name");
+            return;
+        }
         current = current.parentElement;
     }
     return current;
