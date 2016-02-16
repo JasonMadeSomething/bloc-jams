@@ -100,31 +100,32 @@ var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
 };
 
-var nextSong = function(){
-    var prev = currentSongFromAlbum;
+var changeSong = function() {
+    var currentlyPlaying = currentSongFromAlbum;
     getSongNumberCell(currentlyPlayingSongNumber).html(currentlyPlayingSongNumber);
-    if(trackIndex(currentAlbum, prev) === currentAlbum.songs.length - 1){
-       var newIndex = 0;
-    } else{
-        var newIndex = trackIndex(currentAlbum, prev) + 1;
+    
+    var getNewIndex = function(next) {
+        var index = trackIndex(currentAlbum, currentlyPlaying);
+        if (next){
+            if( index === currentAlbum.songs.length - 1){
+                var newIndex = 0;
+            } else{
+                var newIndex = index + 1;
+            }
+        } else {
+            if(index === 0){
+                var newIndex = currentAlbum.songs.length - 1;
+            }else{
+                var newIndex = index - 1;    
+            }
+        }
+        return newIndex;
     }
+    var newIndex = getNewIndex($(this).hasClass('next'));
     setSong(newIndex + 1);
     getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
     updatePlayerBarSong();
-};
-
-var previousSong = function() {
-    var next = currentSongFromAlbum;
-    getSongNumberCell(currentlyPlayingSongNumber).html(currentlyPlayingSongNumber);
-    if(trackIndex(currentAlbum, next) === 0 ){
-        var newIndex = currentAlbum.songs.length - 1;
-    } else{
-        var newIndex = trackIndex(currentAlbum, next) - 1;
-    }
-    setSong(newIndex + 1);
-    getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
-    updatePlayerBarSong();
-};
+}
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
@@ -141,6 +142,6 @@ var $nextButton = $('.main-controls .next');
 $(document).ready(function(){
     
     setCurrentAlbum(albumPicasso);
-    $previousButton.click(previousSong);
-    $nextButton.click(nextSong);
+    $previousButton.click(changeSong);
+    $nextButton.click(changeSong);
 });
