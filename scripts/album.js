@@ -102,11 +102,12 @@ var trackIndex = function(album, song) {
 
 var nextSong = function(){
     var prev = currentSongFromAlbum;
+    var newIndex = 0;
     getSongNumberCell(currentlyPlayingSongNumber).html(currentlyPlayingSongNumber);
     if(trackIndex(currentAlbum, prev) === currentAlbum.songs.length - 1){
-       var newIndex = 0;
+       newIndex = 0;
     } else{
-        var newIndex = trackIndex(currentAlbum, prev) + 1;
+        newIndex = trackIndex(currentAlbum, prev) + 1;
     }
     setSong(newIndex + 1);
     getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
@@ -115,11 +116,12 @@ var nextSong = function(){
 
 var previousSong = function() {
     var next = currentSongFromAlbum;
+    var newIndex = 0;
     getSongNumberCell(currentlyPlayingSongNumber).html(currentlyPlayingSongNumber);
     if(trackIndex(currentAlbum, next) === 0 ){
-        var newIndex = currentAlbum.songs.length - 1;
+        newIndex = currentAlbum.songs.length - 1;
     } else{
-        var newIndex = trackIndex(currentAlbum, next) - 1;
+        newIndex = trackIndex(currentAlbum, next) - 1;
     }
     setSong(newIndex + 1);
     getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
